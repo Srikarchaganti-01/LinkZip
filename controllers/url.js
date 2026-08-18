@@ -14,6 +14,7 @@ async function genShortUrl(req, res) {
     shortId: shortId,
     orgId: body.url,
     history: [],
+    createdBy: req.user._id,
   });
   return res.status(200).render("home", { id: shortId });
 }
