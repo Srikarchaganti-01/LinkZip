@@ -1,11 +1,13 @@
 const express = require("express");
 const path = require("path");
-const urlRoute = require("./routes/url");
-const staticRoute = require("./routes/staticRouter");
 const URL = require("./models/url");
 const { connectDB } = require("./connection");
 const app = express();
 const port = 8001;
+
+const urlRoute = require("./routes/url");
+const staticRoute = require("./routes/staticRouter");
+const userRoute = require("./routes/user");
 
 connectDB("mongodb://localhost:27017/linkzip").then(
   console.log("mongoDb Connected"),
@@ -18,6 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/url", urlRoute);
+app.use("/user", userRoute);
 app.use("/", staticRoute);
 
 app.get("/url/:shortId", async (req, res) => {
